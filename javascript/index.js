@@ -1,40 +1,54 @@
 function updateTime() {
-  // Los Angeles
-  let losAngelesElement = document.querySelector("#los-angeles");
-  if (losAngelesElement) {
-    let losAngelesDateElement = losAngelesElement.querySelector(".date");
-    let losAngelesTimeElement = losAngelesElement.querySelector(".time");
-    let losAngelesTime = moment().tz("America/Los_Angeles");
+  // Vancouver
+  let vancouverElement = document.querySelector("#vancouver");
+  if (vancouverElement) {
+    let vancouverDateElement = vancouverElement.querySelector(".date");
+    let vancouverTimeElement = vancouverElement.querySelector(".time");
+    let vancouverTime = moment().tz("America/Vancouver");
 
-    losAngelesDateElement.innerHTML = losAngelesTime.format("MMMM Do YYYY");
-    losAngelesTimeElement.innerHTML = losAngelesTime.format(
+    vancouverDateElement.innerHTML = vancouverTime.format("MMMM Do YYYY");
+    vancouverTimeElement.innerHTML = vancouverTime.format(
       "h:mm:ss [<small>]A[</small>]"
     );
   }
 
-  // Sydney
-  let sydneyElement = document.querySelector("#sydney");
-  if (sydneyElement) {
-    let sydneyDateElement = sydneyElement.querySelector(".date");
-    let sydneyTimeElement = sydneyElement.querySelector(".time");
-    let sydneyTime = moment().tz("Australia/Sydney");
+  // Luxembourg
+  let luxembourgElement = document.querySelector("#luxembourg");
+  if (luxembourgElement) {
+    let luxembourgDateElement = luxembourgElement.querySelector(".date");
+    let luxembourgTimeElement = luxembourgElement.querySelector(".time");
+    let luxembourgTime = moment().tz("Europe/Luxembourg");
 
-    sydneyDateElement.innerHTML = sydneyTime.format("MMMM Do YYYY");
-    sydneyTimeElement.innerHTML = sydneyTime.format(
+    luxembourgDateElement.innerHTML = luxembourgTime.format("MMMM Do YYYY");
+    luxembourgTimeElement.innerHTML = luxembourgTime.format(
+      "h:mm:ss [<small>]A[</small>]"
+    );
+  }
+
+  //Kuala Lumpur
+  let kualaLumpurElement = document.querySelector("#kuala-lumpur");
+  if (kualaLumpurElement) {
+    let kualaLumpurDateElement = kualaLumpurElement.querySelector(".date");
+    let kualaLumpurTimeElement = kualaLumpurElement.querySelector(".time");
+    let kualaLumpurTime = moment().tz("Asia/Kuala_Lumpur");
+
+    kualaLumpurDateElement.innerHTML = kualaLumpurTime.format("MMMM Do YYYY");
+    kualaLumpurTimeElement.innerHTML = kualaLumpurTime.format(
       "h:mm:ss [<small>]A[</small>]"
     );
   }
 }
 
 function updateCity(event) {
-  let cityTimeZone = event.target.value;
-  if (cityTimeZone === "current") {
-    cityTimeZone = moment.tz.guess();
-  }
-  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
-  let cityTime = moment().tz(cityTimeZone);
-  let citiesElement = document.querySelector("#cities");
-  citiesElement.innerHTML = `
+  function updateCityTime() {
+    let cityTimeZone = event.target.value;
+    if (cityTimeZone === "current") {
+      cityTimeZone = moment.tz.guess();
+    }
+    let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+    let cityTime = moment().tz(cityTimeZone);
+    let citiesElement = document.querySelector("#cities");
+    citiesElement.innerHTML = `
   <div class="city">
           <div>
             <h2>${cityName}</h2>
@@ -46,6 +60,10 @@ function updateCity(event) {
         </div>
         <a href="/">All cities</a>
         `;
+  }
+
+  updateCityTime();
+  setInterval(updateCityTime, 1000);
 }
 
 updateTime();
